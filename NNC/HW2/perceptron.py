@@ -8,8 +8,8 @@ class Perceptron:
 
     def train(self, trainset):
         step=0
-        while True:
-            immute=True
+        c=0
+        while c<4:
             for x in trainset:
                 print ("step "+str(step)+":").rjust(8),
                 print ("  train case:"+str(x)).rjust(30),
@@ -25,16 +25,17 @@ class Perceptron:
                 yout=self.ftheta(y)
                 #print "  yout:",yout
                 if yout==xt:
+                    c+=1
                     print "  correctly classified".rjust(28)
+                    if c==4:break
                     continue
+                c=0
                 print "  misclassified".rjust(28),
-                immute=False
                 self.b+=xt*self.a
                 for i in xrange(len(self.w)):
                     self.w[i]+=x[i]*xt*self.a
                 print ("  weight:"+str(self.w)).rjust(24),
                 print ("  bias:"+str(self.b)).rjust(10)
-            if immute or step>50:break
         print "***",step," steps in total"
         print "*** weight:",self.w
         print "*** bias:",self.b
